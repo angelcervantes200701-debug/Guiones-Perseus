@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PERSEUS - Estrategia de Contenido & Guiones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+        :root {
+            --color-terra: #b07d62;
+            --color-brown-dark: #3e2723;
+            --color-beige-light: #f5f5dc;
+            --color-beige-dark: #d2b48c;
+        }
+
+        /* Estilos generales de la landing */
+        body {
+            background-color: var(--color-beige-light);
+            color: var(--color-brown-dark);
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .gradient-hero {
+            background: linear-gradient(135deg, #3e2723 0%, #b07d62 100%);
+        }
+
+        .terra-gradient-text {
+            background: linear-gradient(to right, #b07d62, #3e2723);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--color-terra);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-brown-dark);
+            transform: translateY(-2px);
+        }
+
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 1.5rem;
+            border: 1px solid var(--color-beige-dark);
+        }
+
+        .brand-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(62, 39, 35, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .ai-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(62, 39, 35, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Estilos específicos de la sección de registro solicitada */
+        .terra-bg { background-color: #bc6c25; } 
+        .terra-bg-hover { background-color: #9c581e; }
+        .form-container {
+            background-color: #fefae0;
+            box-shadow: 0 10px 25px -5px rgba(139, 94, 52, 0.1), 0 8px 10px -6px rgba(139, 94, 52, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Modal de IA -->
+    <div id="aiModal" class="ai-modal">
+        <div class="bg-white rounded-3xl p-8 max-w-2xl w-full mx-4 shadow-2xl border border-[#e9edc9]">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold terra-gradient-text flex items-center gap-2">
+                    <i class="fas fa-sparkles text-[#bc6c25]"></i> Sugerencia Estratégica ✨
+                </h3>
+                <button onclick="closeAIModal()" class="text-stone-400 hover:text-stone-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="aiResponseContent" class="text-stone-700 leading-relaxed overflow-y-auto max-h-[60vh] prose prose-stone"></div>
+            <div class="mt-8 flex justify-end">
+                <button onclick="closeAIModal()" class="btn-primary px-6 py-2 rounded-full text-sm font-bold">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegación -->
+    <nav id="mainNav" class="fixed top-0 w-full z-50 transition-all duration-300 h-20 flex items-center">
+        <div class="max-w-7xl mx-auto px-6 w-full flex justify-between items-center">
+            <div class="text-2xl font-extrabold tracking-tighter text-brown-900">PERSEUS</div>
+            <div class="hidden md:flex space-x-8 font-semibold items-center">
+                <a href="#inicio" class="hover:text-[#bc6c25] transition">La Marca</a>
+                <a href="#estrategia" class="hover:text-[#bc6c25] transition">Estrategia</a>
+                <a href="#consultar" class="hover:text-[#bc6c25] transition">Gestión</a>
+                <a href="#contacto" class="btn-primary px-6 py-2 rounded-full text-sm">Registro de Leads</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección: Hero -->
+    <section id="inicio" class="gradient-hero min-h-screen flex items-center justify-center text-white px-6 pt-20">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="uppercase tracking-[0.3em] text-sm mb-4 block text-beige-light/60 font-bold">Concepto & Estilo</span>
+            <h1 class="text-6xl md:text-8xl font-extrabold mb-8 leading-tight tracking-tighter">
+                PERSEUS <br> <span class="text-beige-light/80">Casual Moderno</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-12 text-white/80 max-w-3xl mx-auto font-light leading-relaxed">
+                Diseñamos estrategias para el hombre práctico que busca comodidad, versatilidad y estilo sencillo sin complicaciones.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-6">
+                <a href="#estrategia" class="bg-white text-brown-dark px-10 py-4 rounded-full font-bold shadow-xl transition hover:scale-105 flex items-center justify-center gap-2">
+                    Nuestra Estrategia <i class="fas fa-arrow-down text-sm"></i>
+                </a>
+                <a href="#consultar" class="border border-white/30 backdrop-blur-sm px-10 py-4 rounded-full font-bold hover:bg-white/10 transition flex items-center justify-center gap-2">
+                    Acceder al CRM <i class="fas fa-database text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Pilares -->
+    <section id="estrategia" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-extrabold terra-gradient-text mb-4">Nuestros Perfiles Clave</h2>
+                <p class="text-stone-500 max-w-2xl mx-auto italic">Entendemos al hombre moderno a través de tres pilares fundamentales.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="brand-card">
+                    <div class="w-12 h-12 bg-terra/10 rounded-full flex items-center justify-center text-terra mb-6">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Hombre Práctico</h3>
+                    <p class="text-stone-500 text-sm leading-relaxed">Busca ropa cómoda y lista para usar. Prefiere conjuntos rápidos y versátiles.</p>
+                </div>
+                <div class="brand-card">
+                    <div class="w-12 h-12 bg-terra/10 rounded-full flex items-center justify-center text-terra mb-6">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Universitario Estilizado</h3>
+                    <p class="text-stone-500 text-sm leading-relaxed">Sigue tendencias y busca outfits completos para destacar en su entorno.</p>
+                </div>
+                <div class="brand-card">
+                    <div class="w-12 h-12 bg-terra/10 rounded-full flex items-center justify-center text-terra mb-6">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Profesional Casual</h3>
+                    <p class="text-stone-500 text-sm leading-relaxed">Emprendedor que necesita funcionalidad y durabilidad en su día a día.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Panel de Consulta -->
+    <section id="consultar" class="py-24 px-6 bg-stone-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
+                <div>
+                    <h2 class="text-4xl font-extrabold terra-gradient-text mb-2 tracking-tight">Gestión de Prospectos</h2>
+                    <p class="text-stone-500">Base de datos centralizada. Haz clic en ✨ para generar ideas con Gemini AI.</p>
+                </div>
+                <button id="refreshBtn" class="btn-primary px-8 py-3 rounded-xl font-bold flex items-center gap-3 shadow-lg">
+                    <i class="fas fa-sync-alt" id="refreshIcon"></i> Actualizar Registros
+                </button>
+            </div>
+            <div class="bg-white p-6 rounded-[2rem] shadow-xl border border-stone-100">
+                <div class="table-container">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-stone-50 text-stone-400 text-[10px] uppercase tracking-[0.2em] font-bold">
+                                <th class="px-6 py-5 border-b">Fecha</th>
+                                <th class="px-6 py-5 border-b">Nombre</th>
+                                <th class="px-6 py-5 border-b">Interés</th>
+                                <th class="px-6 py-5 border-b">Notas</th>
+                                <th class="px-6 py-5 border-b">Acciones IA</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsTable" class="text-sm text-stone-600">
+                            <tr>
+                                <td colspan="5" class="px-6 py-16 text-center text-stone-400 italic">Carga los contactos para gestionar la estrategia.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Registro (Actualizada según tu solicitud) -->
+    <section id="contacto" class="py-24 px-6 bg-white flex items-center justify-center">
+        <div class="w-full max-w-lg form-container rounded-2xl p-8 md:p-10 border border-[#e9edc9]">
+            <header class="mb-8 text-center">
+                <h1 class="text-3xl font-semibold text-[#283618] mb-2">Contáctanos</h1>
+                <p class="text-[#606c38]">Nos encantaría saber de ti. Por favor, llena los campos a continuación.</p>
+            </header>
+    
+            <form id="contactForm" class="space-y-5">
+                <!-- Nombre -->
+                <div>
+                    <label for="nombre" class="block text-sm font-medium text-[#283618] mb-1">Nombre Completo</label>
+                    <input type="text" id="nombre" name="nombre" required
+                        class="w-full px-4 py-3 rounded-lg border border-[#ccd5ae] focus:ring-2 focus:ring-[#bc6c25] focus:border-transparent outline-none transition duration-200"
+                        placeholder="Ej. Juan Pérez">
+                </div>
+    
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-[#283618] mb-1">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" required
+                        class="w-full px-4 py-3 rounded-lg border border-[#ccd5ae] focus:ring-2 focus:ring-[#bc6c25] focus:border-transparent outline-none transition duration-200"
+                        placeholder="juan@ejemplo.com">
+                </div>
+    
+                <!-- Interés -->
+                <div>
+                    <label for="interes" class="block text-sm font-medium text-[#283618] mb-1">Área de Interés</label>
+                    <select id="interes" name="interes" required
+                        class="w-full px-4 py-3 rounded-lg border border-[#ccd5ae] focus:ring-2 focus:ring-[#bc6c25] focus:border-transparent outline-none transition duration-200 bg-white">
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="Diseño">Diseño</option>
+                        <option value="Desarrollo">Desarrollo Web</option>
+                        <option value="Marketing">Marketing Digital</option>
+                        <option value="Consultoria">Consultoría</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+    
+                <!-- Mensaje -->
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <label for="mensaje" class="block text-sm font-medium text-[#283618]">Mensaje</label>
+                        <button type="button" onclick="improveNotes()" class="text-[10px] font-bold text-[#bc6c25] hover:text-[#9c581e] flex items-center gap-1">
+                            ✨ Mejorar con IA
+                        </button>
+                    </div>
+                    <textarea id="mensaje" name="mensaje" rows="4" required
+                        class="w-full px-4 py-3 rounded-lg border border-[#ccd5ae] focus:ring-2 focus:ring-[#bc6c25] focus:border-transparent outline-none transition duration-200"
+                        placeholder="Cuéntanos más sobre tu proyecto..."></textarea>
+                </div>
+    
+                <button type="submit" id="submitBtn"
+                    class="w-full terra-bg hover:terra-bg-hover text-white font-semibold py-3 rounded-lg transition duration-300 transform active:scale-[0.98] shadow-md">
+                    Enviar Información
+                </button>
+            </form>
+    
+            <div id="feedback" class="hidden mt-6 p-4 rounded-lg text-center font-medium"></div>
+        </div>
+    </section>
+
+    <footer class="py-12 bg-stone-900 text-stone-500 text-center text-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="mb-2 font-bold text-stone-400">PERSEUS © 2024</p>
+            <p class="font-light">Estrategia de Contenido & Gestión CRM</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- CONFIGURACIÓN Gemini API ---
+        const apiKey = ""; 
+        
+        async function callGemini(prompt, systemPrompt = "Eres un consultor experto de la marca PERSEUS, enfocada en el hombre moderno práctico.") {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            let retries = 5;
+            let delay = 1000;
+
+            while (retries > 0) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+                    return result.candidates?.[0]?.content?.parts?.[0]?.text;
+                } catch (e) {
+                    retries--;
+                    if (retries === 0) throw e;
+                    await new Promise(r => setTimeout(r, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        async function improveNotes() {
+            const msgArea = document.getElementById('mensaje');
+            const originalText = msgArea.value;
+            if (!originalText) return;
+            msgArea.disabled = true;
+            msgArea.placeholder = "Mejorando notas con IA...";
+            try {
+                const improvedText = await callGemini(
+                    `Reescribe estas notas de un lead para que suenen más profesionales y estratégicas: "${originalText}"`,
+                    "Eres un asistente estratégico de PERSEUS. Sé breve y profesional."
+                );
+                if (improvedText) msgArea.value = improvedText.trim();
+            } catch (e) { console.error(e); } 
+            finally { msgArea.disabled = false; }
+        }
+
+        function showAIModal(content) {
+            const modal = document.getElementById('aiModal');
+            const contentDiv = document.getElementById('aiResponseContent');
+            contentDiv.innerHTML = content.replace(/\n/g, '<br>');
+            modal.style.display = 'flex';
+        }
+
+        function closeAIModal() { document.getElementById('aiModal').style.display = 'none'; }
+
+        async function generateIdeas(nombre, interes, notas) {
+            showAIModal("Generando estrategia para " + nombre + "...");
+            try {
+                const prompt = `Genera 3 ideas creativas de Reels o TikToks para un cliente interesado en "${interes}". Notas: "${notas}". Tono PERSEUS: moderno y práctico.`;
+                const ideas = await callGemini(prompt, "Eres director creativo de PERSEUS. Genera ideas virales.");
+                showAIModal(ideas);
+            } catch (e) { showAIModal("Error al conectar con la IA."); }
+        }
+
+        // --- LÓGICA DE REGISTRO (MAKE.COM) ---
+        const form = document.getElementById('contactForm');
+        const feedback = document.getElementById('feedback');
+        const submitBtn = document.getElementById('submitBtn');
+        const webhookURL = 'https://hook.us2.make.com/phnvgsfh9tognquethvdbltl110as33z';
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Enviando...';
+            submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            data.timestamp = new Date().toISOString();
+
+            try {
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    showFeedback('¡Información enviada con éxito! Nos contactaremos pronto.', 'bg-[#e9edc9] text-[#283618]');
+                    form.reset();
+                } else { throw new Error('Error en el servidor'); }
+            } catch (error) {
+                showFeedback('Hubo un problema al enviar el formulario. Intenta de nuevo.', 'bg-red-100 text-red-700');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Enviar Información';
+                submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+            }
+        });
+
+        function showFeedback(message, classes) {
+            feedback.innerText = message;
+            feedback.className = `mt-6 p-4 rounded-lg text-center font-medium ${classes}`;
+            feedback.classList.remove('hidden');
+            setTimeout(() => { feedback.classList.add('hidden'); }, 5000);
+        }
+
+        // --- LÓGICA CONSULTA CRM (GOOGLE SHEETS) ---
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-1lViaPInudDPR_BwVxSAfAi7GXqfwk32rKJl7WLjnEpPv7NS6bRcItzsA149zWHPnw/exec';
+        const refreshBtn = document.getElementById('refreshBtn');
+        const resultsTable = document.getElementById('resultsTable');
+        const refreshIcon = document.getElementById('refreshIcon');
+
+        refreshBtn.addEventListener('click', async () => {
+            refreshIcon.classList.add('fa-spin');
+            refreshBtn.disabled = true;
+            resultsTable.innerHTML = `<tr><td colspan="5" class="px-6 py-20 text-center text-stone-400">Accediendo a la base de datos...</td></tr>`;
+
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const data = await response.json();
+                if (!data || data.length === 0) {
+                    resultsTable.innerHTML = `<tr><td colspan="5" class="px-6 py-20 text-center">No hay contactos registrados.</td></tr>`;
+                } else {
+                    resultsTable.innerHTML = '';
+                    data.reverse().forEach(item => {
+                        const date = item.fecha ? new Date(item.fecha).toLocaleString() : 'N/A';
+                        const nombre = item.nombre || 'N/A';
+                        const row = `
+                            <tr class="hover:bg-stone-50 transition border-b border-stone-100">
+                                <td class="px-6 py-5 text-stone-400 font-mono text-[10px]">${date}</td>
+                                <td class="px-6 py-5 font-bold text-stone-800">${nombre}</td>
+                                <td class="px-6 py-5">
+                                    <span class="bg-[#bc6c25]/10 text-[#bc6c25] px-3 py-1 rounded-full text-[10px] font-bold uppercase">${item.interes || 'General'}</span>
+                                </td>
+                                <td class="px-6 py-5 text-stone-400 text-xs italic">${item.mensaje || '-'}</td>
+                                <td class="px-6 py-5">
+                                    <button onclick="generateIdeas('${nombre.replace(/'/g, "")}', '${(item.interes||'').replace(/'/g, "")}', '${(item.mensaje||'').replace(/'/g, "")}')" class="text-[#bc6c25] hover:text-[#9c581e] transition flex items-center gap-1 font-bold text-[10px] uppercase">
+                                        ✨ Ideas de Contenido
+                                    </button>
+                                </td>
+                            </tr>`;
+                        resultsTable.insertAdjacentHTML('beforeend', row);
+                    });
+                }
+            } catch (err) { resultsTable.innerHTML = `<tr><td colspan="5" class="px-6 py-20 text-center text-red-500">Error de conexión.</td></tr>`; }
+            finally { refreshIcon.classList.remove('fa-spin'); refreshBtn.disabled = false; }
+        });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 50) nav.classList.add('nav-scrolled');
+            else nav.classList.remove('nav-scrolled');
+        });
+    </script>
+</body>
+</html>
